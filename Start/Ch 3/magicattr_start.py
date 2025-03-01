@@ -17,6 +17,11 @@ class Book:
 
     # TODO: __getattribute__ called when an attr is retrieved. Don't
     # directly access the attr name otherwise a recursive loop is created
+    def __getattribute__(self, name):
+        if name == "price":
+            return super().__getattribute__("price") - (super().__getattribute__("price") * super().__getattribute__("_discount"))
+        return super().__getattribute__(name)
+
 
     # TODO: __setattr__ called when an attribute value is set. Don't set the attr
     # directly here otherwise a recursive loop causes a crash
@@ -27,3 +32,14 @@ class Book:
 
 b1 = Book("War and Peace", "Leo Tolstoy", 39.95)
 b2 = Book("The Catcher in the Rye", "JD Salinger", 29.95)
+
+
+
+# ------------------------------------------------
+# Always clear the Terminal before new execution
+import os
+os.system('cls' if os.name == 'nt' else 'clear')
+# ------------------------------------------------
+
+print(b1.price)
+print(b1)
